@@ -10,7 +10,7 @@ var left_rotation = 0.005
 var rotation_correction_strenght = 0.000000001
 var right_strenght = 50
 var left_strenght = 50
-var up_strenght = 50
+var up_strenght = 100
 var sea_gravity = 15
 @export var absolute_player_depth_px: float = 0.0
 
