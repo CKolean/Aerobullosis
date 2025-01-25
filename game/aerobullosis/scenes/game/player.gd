@@ -14,12 +14,15 @@ var up_strenght = 100
 var sea_gravity = 15
 @export var absolute_player_depth_px: float = 0.0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
 	#start_position = Vector2(screen_size[0]/2,(screen_size[1]-100))
 	#position = start_position
 	global_rotation_degrees = start_rotation
+	#turning bubbles on
+	$ParticleBubbles.emitting = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -49,9 +52,8 @@ func _process(delta):
 			rotation = rotation_correction_strenght
 	
 	if Input.is_action_just_released("move_up"):
-		print("released")
+		$ParticleBubbles.restart()
 		
-	
 	position += velocity * delta
 	#position = position.clamp(Vector2.ZERO, screen_size)
 	
