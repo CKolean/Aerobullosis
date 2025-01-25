@@ -1,31 +1,154 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=27 format=3 uid="uid://c2m7mvnk32prg"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
 [ext_resource type="Texture2D" uid="uid://c2vqpfnfvhgxt" path="res://assets/red_fade.png" id="2_iirnm"]
 [ext_resource type="Texture2D" uid="uid://b63ir1tiq4oil" path="res://assets/background_element_deer.png" id="2_mkp8s"]
+[ext_resource type="Texture2D" uid="uid://tbp2ew5okf7w" path="res://assets/surface.png" id="3_bhrrt"]
 [ext_resource type="Texture2D" uid="uid://7fm38exoh80g" path="res://assets/background_seafloor.png" id="3_l34e0"]
 [ext_resource type="PackedScene" uid="uid://uhh2btocmma6" path="res://scenes/game/player.tscn" id="3_t8tih"]
 [ext_resource type="Texture2D" uid="uid://c5i12e2o5phmv" path="res://assets/background_element_skeleton.png" id="5_dlhci"]
 [ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
-[ext_resource type="Texture2D" uid="uid://c8glfwtqu6ov0" path="res://assets/bubble_2.png" id="9_kv3c3"]
+[ext_resource type="Texture2D" uid="uid://cudrx2wlc2i1r" path="res://assets/tutorial_arrows.png" id="9_wmsbu"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qjmb1"]
-particle_flag_disable_z = true
-angle_min = 1.07288e-05
-angle_max = 360.0
-gravity = Vector3(0, -500, 0)
-scale_min = 0.01
-scale_max = 0.1
-turbulence_enabled = true
-turbulence_noise_strength = 2.0
+[sub_resource type="Animation" id="Animation_3bcbw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pdmrj"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hpwvv"]
+resource_name = "fade_out"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n5p1r"]
+resource_name = "in"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jef6l"]
+resource_name = "out"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4qst3"]
+_data = {
+"RESET": SubResource("Animation_3bcbw"),
+"fade_in": SubResource("Animation_pdmrj"),
+"fade_out": SubResource("Animation_hpwvv"),
+"in": SubResource("Animation_n5p1r"),
+"out": SubResource("Animation_jef6l")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i5wnm"]
+animation = &"fade_in"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4odsj"]
+animation = &"fade_out"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rbsj5"]
+animation = &"in"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gio8a"]
+animation = &"out"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_flsuw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iq5tm"]
+advance_mode = 2
+advance_condition = &"fade_in"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i5axp"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qk3p0"]
+advance_mode = 2
+advance_condition = &"fade_out"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yqkic"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v4fwj"]
+states/Start/position = Vector2(211, 106)
+states/fade_in/node = SubResource("AnimationNodeAnimation_i5wnm")
+states/fade_in/position = Vector2(418, 240)
+states/fade_out/node = SubResource("AnimationNodeAnimation_4odsj")
+states/fade_out/position = Vector2(548, 70)
+states/in/node = SubResource("AnimationNodeAnimation_rbsj5")
+states/in/position = Vector2(568, 183)
+states/out/node = SubResource("AnimationNodeAnimation_gio8a")
+states/out/position = Vector2(334, 106)
+transitions = ["Start", "out", SubResource("AnimationNodeStateMachineTransition_flsuw"), "out", "fade_in", SubResource("AnimationNodeStateMachineTransition_iq5tm"), "fade_in", "in", SubResource("AnimationNodeStateMachineTransition_i5axp"), "in", "fade_out", SubResource("AnimationNodeStateMachineTransition_qk3p0"), "fade_out", "out", SubResource("AnimationNodeStateMachineTransition_yqkic")]
+graph_offset = Vector2(-228, -65)
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
 
 [node name="BackgroundBlue" type="Sprite2D" parent="."]
-position = Vector2(2460.5, -1472.5)
-scale = Vector2(128.11, 76.7717)
+position = Vector2(550, -1714.5)
+scale = Vector2(23.551, 28.6073)
 texture = ExtResource("1_gwwb4")
 
 [node name="BackgroundSeafloor" type="Sprite2D" parent="."]
@@ -33,19 +156,8 @@ position = Vector2(514.063, -767.5)
 scale = Vector2(0.82425, 0.82425)
 texture = ExtResource("3_l34e0")
 
-[node name="ParticleBubbles" type="GPUParticles2D" parent="."]
-position = Vector2(592, -502)
-emitting = false
-amount = 25
-process_material = SubResource("ParticleProcessMaterial_qjmb1")
-texture = ExtResource("9_kv3c3")
-lifetime = 5.0
-one_shot = true
-speed_scale = 0.8
-trail_lifetime = 0.1
-trail_sections = 2
-
 [node name="RedFade" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 position = Vector2(519, -1029)
 scale = Vector2(2.36809, 3.14702)
@@ -66,11 +178,33 @@ position = Vector2(190.027, -450.585)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("7_rrnxu")
 
+[node name="BackgroundSurface" type="Sprite2D" parent="."]
+position = Vector2(533.552, -2422.7)
+scale = Vector2(2.29545, 2.76797)
+texture = ExtResource("3_bhrrt")
+
+[node name="TutorialArrows" type="Sprite2D" parent="."]
+position = Vector2(589, -263)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_wmsbu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialArrows"]
+libraries = {
+"": SubResource("AnimationLibrary_4qst3")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="TutorialArrows/AnimationPlayer"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_v4fwj")
+anim_player = NodePath("..")
+parameters/conditions/fade_in = false
+parameters/conditions/fade_out = false
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, -449)
 zoom = Vector2(1.5, 1.5)
 limit_left = -1750
-limit_top = -5000
+limit_top = -4000
 limit_right = 2750
 limit_bottom = 500
 limit_smoothed = true
