@@ -6,7 +6,9 @@ var player_depth = 0
 @onready var red_fade = get_node("RedFade")
 @onready var player = get_node("Player")
 @onready var camera = get_node("Camera2D")
+@onready var tutorial = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
 var player_prev_position
+var tutorial_active = false
 
 # turvaväli alkuun
 const RED_AMOUNT_MIN = -1.0
@@ -17,16 +19,26 @@ const RECOVERY_MULTIPLIER = 0.4
 # aika ennenkuin kuolet kun on punaista
 const DEATH_TIME = 3
 # positio millä voittaa pelin
-const SURFACE_Y = -3000
+const SURFACE_Y = -3800
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_prev_position = player.position
-	pass # Replace with function body.
 
 func get_surface_distance():
 	return abs(SURFACE_Y - player.position.y)
 
+	start_tutorial()
+	
+func start_tutorial():
+	await get_tree().create_timer(2.0).timeout
+	tutorial_active = true
+	tutorial.set("fade_in", true)
+	
+func stop_tutorial():
+	tutorial_active = false
+	tutorial.set("fade_out", true)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var player_depth_delta = player.position.y - player_prev_position.y
@@ -54,12 +66,15 @@ func _process(delta):
 	red_fade.modulate.a = clamp(red_amount, 0, 1)
 	
 	if red_amount > 0:
-		camera.zoom.x = 1.5 - red_amount * 0.1
-		camera.zoom.y = 1.5 - red_amount * 0.1
+		camera.zoom.x = 1.5 - red_amount * 0.2
+		camera.zoom.y = 1.5 - red_amount * 0.2
 	
 	#print(player.position.y)
 	
 	camera.position = player.position
+	
+	if player.position.y <= -400 and tutorial_active:
+		stop_tutorial()
 	
 	if player.position.y <= SURFACE_Y:
 		game_completed()
