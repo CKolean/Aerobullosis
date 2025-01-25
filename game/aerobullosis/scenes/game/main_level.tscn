@@ -1,35 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=6 format=3 uid="uid://c2m7mvnk32prg"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
+[ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
 [ext_resource type="Texture2D" uid="uid://c2vqpfnfvhgxt" path="res://assets/red_fade.png" id="2_iirnm"]
 [ext_resource type="Texture2D" uid="uid://b63ir1tiq4oil" path="res://assets/background_element_deer.png" id="2_mkp8s"]
 [ext_resource type="PackedScene" uid="uid://uhh2btocmma6" path="res://scenes/game/player.tscn" id="3_t8tih"]
 
 [node name="MainLevel" type="Node2D"]
+script = ExtResource("1_urmmp")
 
-[node name="background_blue" type="Sprite2D" parent="."]
+[node name="BackgroundBlue" type="Sprite2D" parent="."]
 position = Vector2(2460.5, -1472.5)
 scale = Vector2(128.11, 76.7717)
 texture = ExtResource("1_gwwb4")
 
-[node name="red_fade" type="Sprite2D" parent="."]
+[node name="RedFade" type="Sprite2D" parent="."]
 clip_children = 2
 position = Vector2(519, -1029)
 scale = Vector2(2.36809, 3.14702)
 texture = ExtResource("2_iirnm")
 
-[node name="background_deer" type="Sprite2D" parent="red_fade"]
+[node name="background_deer" type="Sprite2D" parent="RedFade"]
 position = Vector2(404.545, 503.81)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("2_mkp8s")
 
-[node name="background_deer2" type="Sprite2D" parent="red_fade"]
+[node name="background_deer2" type="Sprite2D" parent="RedFade"]
 position = Vector2(-529.54, -21.7665)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("2_mkp8s")
 flip_h = true
 
-[node name="background_deer3" type="Sprite2D" parent="red_fade"]
+[node name="background_deer3" type="Sprite2D" parent="RedFade"]
 position = Vector2(472.955, -614.073)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("2_mkp8s")
