@@ -7,13 +7,26 @@
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 clip_children = 2
-position = Vector2(965, -1081)
+position = Vector2(965, 1084)
 texture = ExtResource("2_iirnm")
-
-[node name="CharacterBasePose" type="Sprite2D" parent="Sprite2D"]
-position = Vector2(2, 341)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_0rt65")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(965, 542)
+
+[node name="CharacterBasePose" type="Sprite2D" parent="."]
+light_mask = 2
+position = Vector2(1492, 292)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0rt65")
+
+[node name="CharacterBasePose2" type="Sprite2D" parent="."]
+light_mask = 2
+position = Vector2(572, -47)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0rt65")
+
+[node name="CharacterBasePose3" type="Sprite2D" parent="."]
+light_mask = 2
+position = Vector2(869, 728)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0rt65")
