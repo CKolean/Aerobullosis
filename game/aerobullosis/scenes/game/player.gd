@@ -1,8 +1,19 @@
 extends Area2D
 
-@export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 var start_position
+var start_rotation = 92
+var rotation_limit = 45
+var right_rotation = 0.005
+var left_rotation = 0.005
+# I dont know what to do with this number
+var rotation_correction_strenght = 0.000000001
+var right_strenght = 2
+var left_strenght = 2
+var up_strenght = 50
+var sea_gravity = 10
+@export var absolute_player_depth_px: float = 0.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,22 +21,30 @@ func _ready():
 	start_position = Vector2(screen_size[0]/2,screen_size[1])
 	position = start_position
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
+	#gravity
+	velocity.y += sea_gravity
+	absolute_player_depth_px = position.y
+	print(absolute_player_depth_px)
 	if Input.is_action_pressed("move_right"):
-		print("right")
-		velocity.x += 1
+		#velocity.x += 0.1
+		velocity = velocity.rotated(-right_strenght)
+		if not global_rotation_degrees > rotation_limit:
+			rotation = rotation + right_rotation
 	if Input.is_action_pressed("move_left"):
-		print("left")
-		velocity.x -= 1
+		#velocity.x -= 0.1
+		velocity = velocity.rotated(left_strenght)
+		if not global_rotation_degrees < -rotation_limit:
+			rotation = rotation - left_rotation
 	if Input.is_action_pressed("move_up"):
-		print("up")
-		velocity.y -= 1
-	
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		velocity.y -= up_strenght
+		if global_rotation_degrees >0:
+			rotation = rotation_correction_strenght
+		else:
+			rotation = rotation_correction_strenght
 	
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
+	
