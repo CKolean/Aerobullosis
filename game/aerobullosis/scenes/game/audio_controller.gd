@@ -26,9 +26,8 @@ func _process(delta: float) -> void:
 
 	if red_amount >= DANGER_THRESHOLD:
 		danger.volume_db = linear_to_db((red_amount-DANGER_THRESHOLD)/(1-DANGER_THRESHOLD))
-		theme.volume_db = linear_to_db(1-red_amount)
+		#theme.volume_db = linear_to_db(1-red_amount)
 	else:
-		theme.volume_db = linear_to_db(1)
 		danger.volume_db = linear_to_db(0)
 
 
