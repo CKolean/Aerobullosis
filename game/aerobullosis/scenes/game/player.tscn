@@ -16,5 +16,5 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_cplah")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.07, 0.07)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_14skf")

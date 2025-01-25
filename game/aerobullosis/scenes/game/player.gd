@@ -49,5 +49,5 @@ func _process(delta):
 			rotation = rotation_correction_strenght
 	
 	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	#position = position.clamp(Vector2.ZERO, screen_size)
 	
