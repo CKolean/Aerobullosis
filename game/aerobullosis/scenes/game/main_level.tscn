@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=50 format=3 uid="uid://c2m7mvnk32prg"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
@@ -11,8 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
 [ext_resource type="Texture2D" uid="uid://bxi6c3sjymb67" path="res://assets/background_element_eye.png" id="8_wgmsu"]
 [ext_resource type="Script" path="res://scenes/game/audio_controller.gd" id="9_0y7nj"]
+[ext_resource type="Texture2D" uid="uid://bq18k7e6824jv" path="res://assets/background_element_statues.png" id="9_6xs4h"]
 [ext_resource type="Texture2D" uid="uid://cudrx2wlc2i1r" path="res://assets/tutorial_arrows.png" id="9_wmsbu"]
 [ext_resource type="AudioStream" uid="uid://cghwtst4hfni8" path="res://assets/sounds/perus uinti musa.mp3" id="13_8segt"]
+[ext_resource type="Texture2D" uid="uid://bjw5kxrwen4x2" path="res://assets/red_screen.png" id="13_u8s7y"]
 [ext_resource type="AudioStream" uid="uid://sby7hrontdpm" path="res://assets/sounds/aerobolis3.mp3" id="14_7ewto"]
 [ext_resource type="AudioStream" uid="uid://g551gshcbsu6" path="res://assets/sounds/noisee.mp3" id="15_enhcc"]
 
@@ -148,6 +150,136 @@ states/out/position = Vector2(334, 106)
 transitions = ["Start", "out", SubResource("AnimationNodeStateMachineTransition_flsuw"), "out", "fade_in", SubResource("AnimationNodeStateMachineTransition_iq5tm"), "fade_in", "in", SubResource("AnimationNodeStateMachineTransition_i5axp"), "in", "fade_out", SubResource("AnimationNodeStateMachineTransition_qk3p0"), "fade_out", "out", SubResource("AnimationNodeStateMachineTransition_yqkic")]
 graph_offset = Vector2(-228, -65)
 
+[sub_resource type="Animation" id="Animation_mnd3o"]
+resource_name = "in"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jgouh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i5jaj"]
+resource_name = "out"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u7fim"]
+resource_name = "fade_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4uijd"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_byfng"]
+_data = {
+"RESET": SubResource("Animation_jgouh"),
+"fade_in": SubResource("Animation_u7fim"),
+"fade_out": SubResource("Animation_4uijd"),
+"in": SubResource("Animation_mnd3o"),
+"out": SubResource("Animation_i5jaj")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xb4ln"]
+animation = &"fade_in"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_epufr"]
+animation = &"fade_out"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q20kb"]
+animation = &"in"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n7olv"]
+animation = &"out"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_51sqj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jwa5v"]
+advance_mode = 2
+advance_condition = &"fade_out"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_si1fn"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ay5od"]
+advance_mode = 2
+advance_condition = &"fade_in"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sse8p"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5m501"]
+states/fade_in/node = SubResource("AnimationNodeAnimation_xb4ln")
+states/fade_in/position = Vector2(493, 189)
+states/fade_out/node = SubResource("AnimationNodeAnimation_epufr")
+states/fade_out/position = Vector2(517, 11)
+states/in/node = SubResource("AnimationNodeAnimation_q20kb")
+states/in/position = Vector2(331, 100)
+states/out/node = SubResource("AnimationNodeAnimation_n7olv")
+states/out/position = Vector2(757, 100)
+transitions = ["Start", "in", SubResource("AnimationNodeStateMachineTransition_51sqj"), "in", "fade_out", SubResource("AnimationNodeStateMachineTransition_jwa5v"), "fade_out", "out", SubResource("AnimationNodeStateMachineTransition_si1fn"), "out", "fade_in", SubResource("AnimationNodeStateMachineTransition_ay5od"), "fade_in", "in", SubResource("AnimationNodeStateMachineTransition_sse8p")]
+graph_offset = Vector2(-175, -67)
+
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
 
@@ -168,24 +300,29 @@ scale = Vector2(2.36809, 3.14702)
 texture = ExtResource("2_iirnm")
 
 [node name="background_deer" type="Sprite2D" parent="RedFade"]
-position = Vector2(294.664, -72.5232)
+position = Vector2(443.395, -339.051)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("2_mkp8s")
 
 [node name="background_skeleton" type="Sprite2D" parent="RedFade"]
-position = Vector2(-317.643, -420.789)
+position = Vector2(-317.555, -592.306)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("5_dlhci")
 
 [node name="background_sword" type="Sprite2D" parent="RedFade"]
-position = Vector2(190.027, -450.585)
+position = Vector2(226.343, -530.343)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("7_rrnxu")
 
 [node name="background_eye" type="Sprite2D" parent="RedFade"]
-position = Vector2(-364.851, 69.9074)
-scale = Vector2(0.259439, 0.195224)
+position = Vector2(-417.214, -153.161)
+scale = Vector2(0.206991, 0.155757)
 texture = ExtResource("8_wgmsu")
+
+[node name="background_eye2" type="Sprite2D" parent="RedFade"]
+position = Vector2(13.513, 248.489)
+scale = Vector2(0.259439, 0.195224)
+texture = ExtResource("9_6xs4h")
 
 [node name="BackgroundSurface" type="Sprite2D" parent="."]
 position = Vector2(533.552, -2422.7)
@@ -209,6 +346,9 @@ anim_player = NodePath("..")
 parameters/conditions/fade_in = false
 parameters/conditions/fade_out = false
 
+[node name="Player" parent="." instance=ExtResource("3_t8tih")]
+position = Vector2(573, -250)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, -449)
 zoom = Vector2(1.5, 1.5)
@@ -219,8 +359,22 @@ limit_bottom = 500
 limit_smoothed = true
 position_smoothing_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("3_t8tih")]
-position = Vector2(573, -250)
+[node name="BlackScreen" type="Sprite2D" parent="Camera2D"]
+position = Vector2(-58.5002, 13)
+scale = Vector2(43.4, 23.8)
+texture = ExtResource("13_u8s7y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/BlackScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_byfng")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Camera2D/BlackScreen/AnimationPlayer"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_5m501")
+anim_player = NodePath("..")
+parameters/conditions/fade_in = false
+parameters/conditions/fade_out = false
 
 [node name="AudioController" type="Node" parent="." node_paths=PackedStringArray("theme", "danger", "noise")]
 script = ExtResource("9_0y7nj")

@@ -17,7 +17,6 @@ func _process(delta: float) -> void:
 	var red_amount = get_parent().red_amount
 	var surface_distance = get_parent().get_surface_distance()
 	
-	print(surface_distance)
 	
 	if surface_distance < NOISE_THRESHOLD:
 		noise.volume_db = linear_to_db((NOISE_THRESHOLD-surface_distance)/NOISE_THRESHOLD)

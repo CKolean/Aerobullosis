@@ -7,6 +7,7 @@ var player_depth = 0
 @onready var player = get_node("Player")
 @onready var camera = get_node("Camera2D")
 @onready var tutorial : AnimationTree = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
+@onready var black_screen : AnimationTree = get_node("Camera2D/BlackScreen/AnimationPlayer/AnimationTree")
 var player_prev_position
 var tutorial_active = false
 
@@ -24,6 +25,9 @@ const SURFACE_Y = -3800
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_prev_position = player.position
+	await get_tree().create_timer(1.0).timeout
+	black_screen["parameters/conditions/fade_out"] = true
+	black_screen["parameters/conditions/fade_in"] = false
 	start_tutorial()
 
 func get_surface_distance():
@@ -81,6 +85,9 @@ func _process(delta):
 		game_completed()
 	
 func game_over():
+	black_screen["parameters/conditions/fade_out"] = false
+	black_screen["parameters/conditions/fade_in"] = true
+	await get_tree().create_timer(1.0).timeout
 	get_tree().reload_current_scene()
 
 func game_completed():
