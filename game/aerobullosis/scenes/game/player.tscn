@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://uhh2btocmma6"]
+[gd_scene load_steps=4 format=3 uid="uid://uhh2btocmma6"]
 
 [ext_resource type="Script" path="res://scenes/game/player.gd" id="1_xcsdf"]
-[ext_resource type="Script" path="res://scenes/game/polygon_2d.gd" id="2_c5yua"]
 [ext_resource type="Texture2D" uid="uid://dn35mdgch461c" path="res://assets/character/character_base_pose.png" id="3_14skf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cplah"]
@@ -15,11 +14,6 @@ metadata/_edit_lock_ = true
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cplah")
-
-[node name="PlayerPolygon2D" type="Polygon2D" parent="."]
-color = Color(1, 0.223529, 1, 1)
-polygon = PackedVector2Array(6, -37, -6, -37, -15, -27, -16, 25, -9, 35, 9, 35, 16, 24, 16, -25)
-script = ExtResource("2_c5yua")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.07, 0.07)

@@ -14,12 +14,11 @@ var up_strenght = 50
 var sea_gravity = 15
 @export var absolute_player_depth_px: float = 0.0
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	start_position = Vector2(screen_size[0]/2,screen_size[1])
-	position = start_position
+	#start_position = Vector2(screen_size[0]/2,(screen_size[1]-100))
+	#position = start_position
 	global_rotation_degrees = start_rotation
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
