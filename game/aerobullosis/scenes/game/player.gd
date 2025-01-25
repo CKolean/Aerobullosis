@@ -3,7 +3,7 @@ extends Area2D
 var screen_size # Size of the game window.
 var start_position
 @export var start_rotation = 92
-var rotation_limit = 45
+var rotation_limit = 15
 var right_rotation = 0.005
 var left_rotation = 0.005
 # I dont know what to do with this number
@@ -47,6 +47,10 @@ func _process(delta):
 			rotation = rotation_correction_strenght
 		else:
 			rotation = rotation_correction_strenght
+	
+	if Input.is_action_just_released("move_up"):
+		print("released")
+		
 	
 	position += velocity * delta
 	#position = position.clamp(Vector2.ZERO, screen_size)
