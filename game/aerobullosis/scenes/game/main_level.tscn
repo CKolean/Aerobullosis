@@ -143,6 +143,7 @@ states/out/position = Vector2(334, 106)
 transitions = ["Start", "out", SubResource("AnimationNodeStateMachineTransition_flsuw"), "out", "fade_in", SubResource("AnimationNodeStateMachineTransition_iq5tm"), "fade_in", "in", SubResource("AnimationNodeStateMachineTransition_i5axp"), "in", "fade_out", SubResource("AnimationNodeStateMachineTransition_qk3p0"), "fade_out", "out", SubResource("AnimationNodeStateMachineTransition_yqkic")]
 graph_offset = Vector2(-228, -65)
 
+
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
 

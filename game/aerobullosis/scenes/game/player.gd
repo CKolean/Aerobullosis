@@ -3,6 +3,9 @@ extends Area2D
 var screen_size # Size of the game window.
 var start_position
 @export var start_rotation = 92
+@export var absolute_player_depth_px: float = 0.0
+@export var can_sink: bool = true
+
 var rotation_limit = 15
 var right_rotation = 0.005
 var left_rotation = 0.005
@@ -12,7 +15,7 @@ var right_strenght = 50
 var left_strenght = 50
 var up_strenght = 100
 var sea_gravity = 15
-@export var absolute_player_depth_px: float = 0.0
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,7 +32,7 @@ func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
 	absolute_player_depth_px = position.y
 		#gravity
-	if not Input.is_anything_pressed():
+	if not Input.is_anything_pressed() and can_sink==true:
 		velocity.y += sea_gravity
 	
 	if Input.is_action_pressed("move_right"):
