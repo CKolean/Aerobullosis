@@ -7,8 +7,8 @@ var start_position
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	start_position = screen_size
-	print(start_position)
+	start_position = Vector2(screen_size[0]/2,screen_size[1])
+	position = start_position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
