@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/ending_controller.gd" id="1_fkfra"]
 [ext_resource type="Texture2D" uid="uid://dn35mdgch461c" path="res://assets/character/character_base_pose.png" id="1_i0lir"]
-[ext_resource type="AudioStream" uid="uid://y67dahwi4c7o" path="res://assets/sounds/noisee.wav" id="3_3cvq0"]
+[ext_resource type="AudioStream" uid="uid://g551gshcbsu6" path="res://assets/sounds/noisee.mp3" id="3_ht0eb"]
 
 [node name="Ending" type="Node2D" node_paths=PackedStringArray("noise")]
 script = ExtResource("1_fkfra")
@@ -13,4 +13,4 @@ position = Vector2(461, 1363)
 texture = ExtResource("1_i0lir")
 
 [node name="Noise" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_3cvq0")
+stream = ExtResource("3_ht0eb")

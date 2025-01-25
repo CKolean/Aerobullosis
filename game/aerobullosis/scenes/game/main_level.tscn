@@ -230,6 +230,7 @@ noise = NodePath("Noise")
 
 [node name="Theme" type="AudioStreamPlayer" parent="AudioController"]
 stream = ExtResource("13_8segt")
+volume_db = -9.101
 autoplay = true
 
 [node name="Danger" type="AudioStreamPlayer" parent="AudioController"]
