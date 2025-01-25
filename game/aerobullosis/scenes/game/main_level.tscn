@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=9 format=3 uid="uid://fld1ojnlgojm"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
@@ -8,17 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://uhh2btocmma6" path="res://scenes/game/player.tscn" id="3_t8tih"]
 [ext_resource type="Texture2D" uid="uid://c5i12e2o5phmv" path="res://assets/background_element_skeleton.png" id="5_dlhci"]
 [ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
-[ext_resource type="Texture2D" uid="uid://c8glfwtqu6ov0" path="res://assets/bubble_2.png" id="9_kv3c3"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qjmb1"]
-particle_flag_disable_z = true
-angle_min = 1.07288e-05
-angle_max = 360.0
-gravity = Vector3(0, -500, 0)
-scale_min = 0.01
-scale_max = 0.1
-turbulence_enabled = true
-turbulence_noise_strength = 2.0
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
@@ -32,18 +21,6 @@ texture = ExtResource("1_gwwb4")
 position = Vector2(514.063, -767.5)
 scale = Vector2(0.82425, 0.82425)
 texture = ExtResource("3_l34e0")
-
-[node name="ParticleBubbles" type="GPUParticles2D" parent="."]
-position = Vector2(592, -502)
-emitting = false
-amount = 25
-process_material = SubResource("ParticleProcessMaterial_qjmb1")
-texture = ExtResource("9_kv3c3")
-lifetime = 5.0
-one_shot = true
-speed_scale = 0.8
-trail_lifetime = 0.1
-trail_sections = 2
 
 [node name="RedFade" type="Sprite2D" parent="."]
 clip_children = 2
