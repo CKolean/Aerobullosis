@@ -1,12 +1,119 @@
-[gd_scene load_steps=6 format=3 uid="uid://uhh2btocmma6"]
+[gd_scene load_steps=21 format=3 uid="uid://uhh2btocmma6"]
 
 [ext_resource type="Script" path="res://scenes/game/player.gd" id="1_xcsdf"]
 [ext_resource type="Texture2D" uid="uid://dn35mdgch461c" path="res://assets/character/character_base_pose.png" id="3_14skf"]
+[ext_resource type="Texture2D" uid="uid://blhbvk6c3wdw" path="res://assets/character/character_low_pose.png" id="3_ipuir"]
 [ext_resource type="Texture2D" uid="uid://c8glfwtqu6ov0" path="res://assets/bubble_2.png" id="3_s01ie"]
+[ext_resource type="Texture2D" uid="uid://c0fsek4v0wh03" path="res://assets/character/character_start_pose.png" id="4_fepau"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cplah"]
 radius = 16.0
 height = 76.0
+
+[sub_resource type="Animation" id="Animation_ratif"]
+resource_name = "base"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_14skf")]
+}
+
+[sub_resource type="Animation" id="Animation_6db83"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_14skf")]
+}
+
+[sub_resource type="Animation" id="Animation_gr5pi"]
+resource_name = "low"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ipuir")]
+}
+
+[sub_resource type="Animation" id="Animation_luhcs"]
+resource_name = "start"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_fepau")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibuwi"]
+_data = {
+"RESET": SubResource("Animation_6db83"),
+"base": SubResource("Animation_ratif"),
+"low": SubResource("Animation_gr5pi"),
+"start": SubResource("Animation_luhcs")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oednl"]
+animation = &"base"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ww4ot"]
+animation = &"low"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0g26b"]
+animation = &"start"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_esp1c"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xg73d"]
+advance_mode = 2
+advance_condition = &"start"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_npbue"]
+advance_mode = 2
+advance_condition = &"sinking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_av1ah"]
+advance_mode = 2
+advance_condition = &"moving"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rl5ah"]
+states/base/node = SubResource("AnimationNodeAnimation_oednl")
+states/base/position = Vector2(494, 49)
+states/low/node = SubResource("AnimationNodeAnimation_ww4ot")
+states/low/position = Vector2(494, 172)
+states/start/node = SubResource("AnimationNodeAnimation_0g26b")
+states/start/position = Vector2(347, 100)
+transitions = ["Start", "start", SubResource("AnimationNodeStateMachineTransition_esp1c"), "start", "base", SubResource("AnimationNodeStateMachineTransition_xg73d"), "base", "low", SubResource("AnimationNodeStateMachineTransition_npbue"), "low", "base", SubResource("AnimationNodeStateMachineTransition_av1ah")]
+graph_offset = Vector2(-59, -23)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ccmf"]
 particle_flag_disable_z = true
@@ -30,10 +137,23 @@ shape = SubResource("CapsuleShape2D_cplah")
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_14skf")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerSprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_ibuwi")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="PlayerSprite2D/AnimationPlayer"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_rl5ah")
+anim_player = NodePath("..")
+parameters/conditions/moving = false
+parameters/conditions/sinking = false
+parameters/conditions/start = false
+
 [node name="ParticleBubbles" type="GPUParticles2D" parent="."]
-position = Vector2(6, -171)
+self_modulate = Color(1, 1, 1, 0.643137)
+position = Vector2(-0.89, -131.655)
 emitting = false
-amount = 30
 amount_ratio = 0.7472
 process_material = SubResource("ParticleProcessMaterial_8ccmf")
 texture = ExtResource("3_s01ie")
