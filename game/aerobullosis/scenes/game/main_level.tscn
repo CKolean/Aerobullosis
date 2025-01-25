@@ -12,9 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://bxi6c3sjymb67" path="res://assets/background_element_eye.png" id="8_wgmsu"]
 [ext_resource type="Script" path="res://scenes/game/audio_controller.gd" id="9_0y7nj"]
 [ext_resource type="Texture2D" uid="uid://cudrx2wlc2i1r" path="res://assets/tutorial_arrows.png" id="9_wmsbu"]
-[ext_resource type="AudioStream" uid="uid://hhagvdtd4kqd" path="res://assets/sounds/perus uinti musa.wav" id="10_s74bl"]
-[ext_resource type="AudioStream" uid="uid://c4n06rwsottxh" path="res://assets/sounds/aerobolis3.wav" id="11_p6gdk"]
-[ext_resource type="AudioStream" uid="uid://y67dahwi4c7o" path="res://assets/sounds/noisee.wav" id="12_pmwyr"]
+[ext_resource type="AudioStream" uid="uid://cghwtst4hfni8" path="res://assets/sounds/perus uinti musa.mp3" id="13_8segt"]
+[ext_resource type="AudioStream" uid="uid://sby7hrontdpm" path="res://assets/sounds/aerobolis3.mp3" id="14_7ewto"]
+[ext_resource type="AudioStream" uid="uid://g551gshcbsu6" path="res://assets/sounds/noisee.mp3" id="15_enhcc"]
 
 [sub_resource type="Animation" id="Animation_3bcbw"]
 length = 0.001
@@ -229,15 +229,15 @@ danger = NodePath("Danger")
 noise = NodePath("Noise")
 
 [node name="Theme" type="AudioStreamPlayer" parent="AudioController"]
-stream = ExtResource("10_s74bl")
+stream = ExtResource("13_8segt")
 autoplay = true
 
 [node name="Danger" type="AudioStreamPlayer" parent="AudioController"]
-stream = ExtResource("11_p6gdk")
+stream = ExtResource("14_7ewto")
 autoplay = true
 
 [node name="Noise" type="AudioStreamPlayer" parent="AudioController"]
-stream = ExtResource("12_pmwyr")
+stream = ExtResource("15_enhcc")
 autoplay = true
 bus = &"noise"
 
