@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd3k5t6hln1b0"]
+
+[ext_resource type="Script" path="res://scenes/ending_controller.gd" id="1_fkfra"]
+[ext_resource type="Texture2D" uid="uid://dn35mdgch461c" path="res://assets/character/character_base_pose.png" id="1_i0lir"]
+
+[node name="Ending" type="Node2D"]
+script = ExtResource("1_fkfra")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(461, 1363)
+texture = ExtResource("1_i0lir")

@@ -5,23 +5,24 @@ var death_counter = 0
 var player_depth = 0
 @onready var red_fade = get_node("RedFade")
 @onready var player = get_node("Player")
+@onready var camera = get_node("Camera2D")
 var player_prev_position
 
 # turvaväli alkuun
-const RED_AMOUNT_MIN = -0.3
+const RED_AMOUNT_MIN = -1.0
 # tätä isommaksi ja sukeltajantauti hidastuu
 const RED_MULTIPLIER = 0.005
 # tätä isommaksi ja palautuminen nopeutuu
 const RECOVERY_MULTIPLIER = 0.4
 # aika ennenkuin kuolet kun on punaista
 const DEATH_TIME = 3
-
+# positio millä voittaa pelin
+const SURFACE_Y = -3000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_prev_position = player.position
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -49,7 +50,20 @@ func _process(delta):
 	red_amount = clamp(red_amount, RED_AMOUNT_MIN, 1)
 	red_fade.modulate.a = clamp(red_amount, 0, 1)
 	
-	print(red_amount)
+	if red_amount > 0:
+		camera.zoom.x = 1.5 - red_amount * 0.1
+		camera.zoom.y = 1.5 - red_amount * 0.1
+	
+	print(player.position.y)
+	
+	camera.position = player.position
+	
+	if player.position.y <= SURFACE_Y:
+		game_completed()
 	
 func game_over():
 	get_tree().reload_current_scene()
+
+func game_completed():
+	print("won the game")
+	get_tree().change_scene_to_file("res://scenes/ending.tscn")

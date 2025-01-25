@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2m7mvnk32prg"]
+
+[ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
+[ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
+[ext_resource type="Texture2D" uid="uid://c2vqpfnfvhgxt" path="res://assets/red_fade.png" id="2_iirnm"]
+[ext_resource type="Texture2D" uid="uid://b63ir1tiq4oil" path="res://assets/background_element_deer.png" id="2_mkp8s"]
+[ext_resource type="Texture2D" uid="uid://7fm38exoh80g" path="res://assets/background_seafloor.png" id="3_l34e0"]
+[ext_resource type="PackedScene" uid="uid://uhh2btocmma6" path="res://scenes/game/player.tscn" id="3_t8tih"]
+[ext_resource type="Texture2D" uid="uid://c5i12e2o5phmv" path="res://assets/background_element_skeleton.png" id="5_dlhci"]
+[ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
+
+[node name="MainLevel" type="Node2D"]
+script = ExtResource("1_urmmp")
+
+[node name="BackgroundBlue" type="Sprite2D" parent="."]
+position = Vector2(2460.5, -1472.5)
+scale = Vector2(128.11, 76.7717)
+texture = ExtResource("1_gwwb4")
+
+[node name="BackgroundSeafloor" type="Sprite2D" parent="."]
+position = Vector2(514.063, -767.5)
+scale = Vector2(0.82425, 0.82425)
+texture = ExtResource("3_l34e0")
+
+[node name="RedFade" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(519, -1029)
+scale = Vector2(2.36809, 3.14702)
+texture = ExtResource("2_iirnm")
+
+[node name="background_deer" type="Sprite2D" parent="RedFade"]
+position = Vector2(294.664, -72.5232)
+scale = Vector2(0.259439, 0.195224)
+texture = ExtResource("2_mkp8s")
+
+[node name="background_skeleton" type="Sprite2D" parent="RedFade"]
+position = Vector2(-317.643, -420.789)
+scale = Vector2(0.259439, 0.195224)
+texture = ExtResource("5_dlhci")
+
+[node name="background_sword" type="Sprite2D" parent="RedFade"]
+position = Vector2(190.027, -450.585)
+scale = Vector2(0.259439, 0.195224)
+texture = ExtResource("7_rrnxu")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, -449)
+limit_left = -1750
+limit_top = -5000
+limit_right = 2750
+limit_bottom = 500
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("3_t8tih")]
+position = Vector2(573, -250)
