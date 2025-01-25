@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2m7mvnk32prg"]
+
+[ext_resource type="Texture2D" uid="uid://dn35mdgch461c" path="res://assets/character/character_base_pose.png" id="1_0rt65"]
+[ext_resource type="Texture2D" uid="uid://c2vqpfnfvhgxt" path="res://assets/red_fade.png" id="2_iirnm"]
+
+[node name="MainLevel" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(965, -1081)
+texture = ExtResource("2_iirnm")
+
+[node name="CharacterBasePose" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(2, 341)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0rt65")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(965, 542)
