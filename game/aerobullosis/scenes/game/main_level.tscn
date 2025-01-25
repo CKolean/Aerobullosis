@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=32 format=3 uid="uid://c2m7mvnk32prg"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://uhh2btocmma6" path="res://scenes/game/player.tscn" id="3_t8tih"]
 [ext_resource type="Texture2D" uid="uid://c5i12e2o5phmv" path="res://assets/background_element_skeleton.png" id="5_dlhci"]
 [ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
+[ext_resource type="Texture2D" uid="uid://bxi6c3sjymb67" path="res://assets/background_element_eye.png" id="8_wgmsu"]
 [ext_resource type="Script" path="res://scenes/game/audio_controller.gd" id="9_0y7nj"]
 [ext_resource type="Texture2D" uid="uid://cudrx2wlc2i1r" path="res://assets/tutorial_arrows.png" id="9_wmsbu"]
 [ext_resource type="AudioStream" uid="uid://hhagvdtd4kqd" path="res://assets/sounds/perus uinti musa.wav" id="10_s74bl"]
@@ -180,6 +181,11 @@ texture = ExtResource("5_dlhci")
 position = Vector2(190.027, -450.585)
 scale = Vector2(0.259439, 0.195224)
 texture = ExtResource("7_rrnxu")
+
+[node name="background_eye" type="Sprite2D" parent="RedFade"]
+position = Vector2(-364.851, 69.9074)
+scale = Vector2(0.259439, 0.195224)
+texture = ExtResource("8_wgmsu")
 
 [node name="BackgroundSurface" type="Sprite2D" parent="."]
 position = Vector2(533.552, -2422.7)

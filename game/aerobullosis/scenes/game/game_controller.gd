@@ -6,7 +6,7 @@ var player_depth = 0
 @onready var red_fade = get_node("RedFade")
 @onready var player = get_node("Player")
 @onready var camera = get_node("Camera2D")
-@onready var tutorial = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
+@onready var tutorial : AnimationTree = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
 var player_prev_position
 var tutorial_active = false
 
@@ -24,20 +24,21 @@ const SURFACE_Y = -3800
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_prev_position = player.position
+	start_tutorial()
 
 func get_surface_distance():
 	return abs(SURFACE_Y - player.position.y)
-
-	start_tutorial()
 	
 func start_tutorial():
 	await get_tree().create_timer(2.0).timeout
 	tutorial_active = true
-	tutorial.set("fade_in", true)
+	print("should happen")
+	tutorial["parameters/conditions/fade_in"] = true
 	
 func stop_tutorial():
 	tutorial_active = false
-	tutorial.set("fade_out", true)
+	tutorial["parameters/conditions/fade_in"] = false
+	tutorial["parameters/conditions/fade_out"] = true
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
