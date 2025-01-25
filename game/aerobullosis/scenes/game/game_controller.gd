@@ -24,6 +24,9 @@ func _ready():
 	player_prev_position = player.position
 	pass # Replace with function body.
 
+func get_surface_distance():
+	return abs(SURFACE_Y - player.position.y)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var player_depth_delta = player.position.y - player_prev_position.y
@@ -54,7 +57,7 @@ func _process(delta):
 		camera.zoom.x = 1.5 - red_amount * 0.1
 		camera.zoom.y = 1.5 - red_amount * 0.1
 	
-	print(player.position.y)
+	#print(player.position.y)
 	
 	camera.position = player.position
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=13 format=3 uid="uid://c31ifkbxk1wkm"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://uhh2btocmma6" path="res://scenes/game/player.tscn" id="3_t8tih"]
 [ext_resource type="Texture2D" uid="uid://c5i12e2o5phmv" path="res://assets/background_element_skeleton.png" id="5_dlhci"]
 [ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
+[ext_resource type="Script" path="res://scenes/game/audio_controller.gd" id="9_0y7nj"]
+[ext_resource type="AudioStream" uid="uid://hhagvdtd4kqd" path="res://assets/sounds/perus uinti musa.wav" id="10_s74bl"]
+[ext_resource type="AudioStream" uid="uid://c4n06rwsottxh" path="res://assets/sounds/aerobolis3.wav" id="11_p6gdk"]
+[ext_resource type="AudioStream" uid="uid://y67dahwi4c7o" path="res://assets/sounds/noisee.wav" id="12_pmwyr"]
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
@@ -55,3 +59,26 @@ position_smoothing_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_t8tih")]
 position = Vector2(573, -250)
+
+[node name="AudioController" type="Node" parent="." node_paths=PackedStringArray("theme", "danger", "noise")]
+script = ExtResource("9_0y7nj")
+theme = NodePath("Theme")
+danger = NodePath("Danger")
+noise = NodePath("Noise")
+
+[node name="Theme" type="AudioStreamPlayer" parent="AudioController"]
+stream = ExtResource("10_s74bl")
+autoplay = true
+
+[node name="Danger" type="AudioStreamPlayer" parent="AudioController"]
+stream = ExtResource("11_p6gdk")
+autoplay = true
+
+[node name="Noise" type="AudioStreamPlayer" parent="AudioController"]
+stream = ExtResource("12_pmwyr")
+autoplay = true
+bus = &"noise"
+
+[connection signal="finished" from="AudioController/Theme" to="AudioController" method="_on_theme_finished"]
+[connection signal="finished" from="AudioController/Danger" to="AudioController" method="_on_danger_finished"]
+[connection signal="finished" from="AudioController/Noise" to="AudioController" method="_on_noise_finished"]
