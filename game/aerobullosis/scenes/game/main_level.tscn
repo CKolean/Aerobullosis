@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=31 format=3 uid="uid://c2m7mvnk32prg"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
@@ -10,10 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://c5i12e2o5phmv" path="res://assets/background_element_skeleton.png" id="5_dlhci"]
 [ext_resource type="Texture2D" uid="uid://bjqjr4quu4ynl" path="res://assets/background_element_sword.png" id="7_rrnxu"]
 [ext_resource type="Script" path="res://scenes/game/audio_controller.gd" id="9_0y7nj"]
+[ext_resource type="Texture2D" uid="uid://cudrx2wlc2i1r" path="res://assets/tutorial_arrows.png" id="9_wmsbu"]
 [ext_resource type="AudioStream" uid="uid://hhagvdtd4kqd" path="res://assets/sounds/perus uinti musa.wav" id="10_s74bl"]
 [ext_resource type="AudioStream" uid="uid://c4n06rwsottxh" path="res://assets/sounds/aerobolis3.wav" id="11_p6gdk"]
 [ext_resource type="AudioStream" uid="uid://y67dahwi4c7o" path="res://assets/sounds/noisee.wav" id="12_pmwyr"]
-[ext_resource type="Texture2D" uid="uid://cudrx2wlc2i1r" path="res://assets/tutorial_arrows.png" id="9_wmsbu"]
 
 [sub_resource type="Animation" id="Animation_3bcbw"]
 length = 0.001
@@ -147,7 +147,6 @@ states/out/position = Vector2(334, 106)
 transitions = ["Start", "out", SubResource("AnimationNodeStateMachineTransition_flsuw"), "out", "fade_in", SubResource("AnimationNodeStateMachineTransition_iq5tm"), "fade_in", "in", SubResource("AnimationNodeStateMachineTransition_i5axp"), "in", "fade_out", SubResource("AnimationNodeStateMachineTransition_qk3p0"), "fade_out", "out", SubResource("AnimationNodeStateMachineTransition_yqkic")]
 graph_offset = Vector2(-228, -65)
 
-
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
 
@@ -162,7 +161,6 @@ scale = Vector2(0.82425, 0.82425)
 texture = ExtResource("3_l34e0")
 
 [node name="RedFade" type="Sprite2D" parent="."]
-visible = false
 clip_children = 2
 position = Vector2(519, -1029)
 scale = Vector2(2.36809, 3.14702)
