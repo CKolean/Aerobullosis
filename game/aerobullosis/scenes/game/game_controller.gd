@@ -21,6 +21,8 @@ const RECOVERY_MULTIPLIER = 0.4
 const DEATH_TIME = 3
 # positio millä voittaa pelin
 const SURFACE_Y = -3800
+# kohta missä vajoaminen loppuu
+const PLAYER_STOPS_SINKING = -20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -83,6 +85,13 @@ func _process(delta):
 	
 	if player.position.y <= SURFACE_Y:
 		game_completed()
+	
+	if player.position.y >= PLAYER_STOPS_SINKING:
+		print("disabled sinking")
+		player.can_sink = false
+	else:
+		print("enabled sinking")
+		player.can_sink = true
 	
 func game_over():
 	black_screen["parameters/conditions/fade_out"] = false

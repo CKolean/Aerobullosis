@@ -10,7 +10,6 @@ var start_position
 var rotation_limit = 15
 var right_rotation = 0.005
 var left_rotation = 0.005
-# I dont know what to do with this number
 var rotation_correction_strenght = 0.01
 var right_strenght = 50
 var left_strenght = 50
