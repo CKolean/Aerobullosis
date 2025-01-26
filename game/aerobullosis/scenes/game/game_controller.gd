@@ -19,6 +19,8 @@ var air_amount = 10
 var this_scene = preload("res://scenes/game/main_level.tscn")
 var ending_scene = preload('res://scenes/ending.tscn')
 
+var state_game_over = false
+
 # turvaväli alkuun
 const RED_AMOUNT_MIN = -1.0
 # tätä isommaksi ja sukeltajantauti hidastuu
@@ -28,12 +30,13 @@ const RECOVERY_MULTIPLIER = 0.4
 # aika ennenkuin kuolet kun on punaista
 const DEATH_TIME = 3
 # positio millä voittaa pelin
-const SURFACE_Y = -2000#-3800
+const SURFACE_Y = -3800
 # kohta missä vajoaminen loppuu
 const PLAYER_STOPS_SINKING = -20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	state_game_over = false
 	player_prev_position = player.position
 	await get_tree().create_timer(1.0).timeout
 	red_screen["parameters/conditions/fade_out"] = true
@@ -56,6 +59,8 @@ func stop_tutorial():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if state_game_over:
+		return
 	var player_depth_delta = player.position.y - player_prev_position.y
 	player_prev_position = player.position
 	# increase red amount if player moved up since last move
@@ -100,6 +105,8 @@ func _process(delta):
 		player.can_sink = true
 	
 func game_over():
+	print('game_over')
+	state_game_over = true
 	audio_controller.silence_theme()
 	red_screen["parameters/conditions/fade_out"] = false
 	red_screen["parameters/conditions/fade_in"] = true
@@ -108,6 +115,9 @@ func game_over():
 	get_tree().root.add_child(this_scene.instantiate())
 	
 func game_over_air():
+	print('game over air')
+	state_game_over = true
+	audio_controller.silence_danger()
 	black_screen["parameters/conditions/fade_out"] = false
 	black_screen["parameters/conditions/fade_in"] = true
 	await get_tree().create_timer(5.0).timeout
@@ -128,3 +138,6 @@ func _on_player_lose_air():
 	
 	if air_amount <= 0:
 		game_over_air()
+
+func is_game_over():
+	return state_game_over

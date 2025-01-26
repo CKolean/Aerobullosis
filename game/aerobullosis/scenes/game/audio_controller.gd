@@ -7,29 +7,36 @@ extends Node
 const NOISE_THRESHOLD = 400
 const DANGER_THRESHOLD = 0.4
 
+var theme_silenced = false
+var danger_silenced = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	danger.volume_db = linear_to_db(0)
 	noise.volume_db = linear_to_db(0)
 
 func silence_theme():
+	theme_silenced = true
 	theme.volume_db = linear_to_db(0)
 
+func silence_danger():
+	danger_silenced = true
+	danger.volume_db = linear_to_db(0)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(delta: float) -> void:		
 	var red_amount = get_parent().red_amount
 	var surface_distance = get_parent().get_surface_distance()
-	
 	
 	if surface_distance < NOISE_THRESHOLD:
 		noise.volume_db = linear_to_db((NOISE_THRESHOLD-surface_distance)/NOISE_THRESHOLD)
 	else:
 		noise.volume_db = linear_to_db(0)
 
-	if red_amount >= DANGER_THRESHOLD:
+	if red_amount >= DANGER_THRESHOLD and not danger_silenced:
 		danger.volume_db = linear_to_db((red_amount-DANGER_THRESHOLD)/(1-DANGER_THRESHOLD))
 		#theme.volume_db = linear_to_db(1-red_amount)
-	else:
+	elif not theme_silenced:
 		danger.volume_db = linear_to_db(0)
 
 

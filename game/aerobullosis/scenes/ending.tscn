@@ -33,31 +33,37 @@ scale = Vector2(27.4952, 14.2636)
 texture = ExtResource("2_fty4x")
 
 [node name="Logo" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-9, 26)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("2_sw13l")
 
 [node name="By" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-524.283, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("4_j6nr1")
 
 [node name="arhi" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-379.283, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("5_81ujh")
 
 [node name="elina" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-150.283, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("6_54onm")
 
 [node name="tia" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(122.717, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("7_h06f0")
 
 [node name="topi" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(397.717, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("8_mtgek")
@@ -71,6 +77,7 @@ volume_db = -10.759
 [node name="Lokki" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_taemt")
 volume_db = -5.379
+
 [node name="ParticleBubbles" type="GPUParticles2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.643137)
 position = Vector2(519, 132)
