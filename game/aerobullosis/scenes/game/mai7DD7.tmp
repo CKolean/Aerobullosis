@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://c2m7mvnk32prg"]
+[gd_scene load_steps=61 format=3 uid="uid://c2m7mvnk32prg"]
 
 [ext_resource type="Texture2D" uid="uid://8rso5lbcdva7" path="res://assets/background_blue.png" id="1_gwwb4"]
 [ext_resource type="Script" path="res://scenes/game/game_controller.gd" id="1_urmmp"]
@@ -325,120 +325,6 @@ states/out/position = Vector2(351, 86)
 transitions = ["Start", "out", SubResource("AnimationNodeStateMachineTransition_baonq"), "out", "fade_in", SubResource("AnimationNodeStateMachineTransition_uk5hu"), "fade_in", "in", SubResource("AnimationNodeStateMachineTransition_68dmd"), "in", "fade_out", SubResource("AnimationNodeStateMachineTransition_bru0h"), "fade_out", "out", SubResource("AnimationNodeStateMachineTransition_fjhap")]
 graph_offset = Vector2(-157, -144)
 
-[sub_resource type="Animation" id="Animation_a5wpk"]
-resource_name = "activate"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.366667, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-43, -154), Vector2(-43, -254)]
-}
-
-[sub_resource type="Animation" id="Animation_xpcpm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-43, -154)]
-}
-
-[sub_resource type="Animation" id="Animation_53pht"]
-resource_name = "off"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-43, -154)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_thdxu"]
-_data = {
-"RESET": SubResource("Animation_xpcpm"),
-"activate": SubResource("Animation_a5wpk"),
-"off": SubResource("Animation_53pht")
-}
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_718lq"]
-animation = &"activate"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1n2s4"]
-animation = &"off"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oow8y"]
-advance_mode = 2
-advance_condition = &"active"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ko3ea"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wqcn1"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_12t7c"]
-states/activate/node = SubResource("AnimationNodeAnimation_718lq")
-states/activate/position = Vector2(570, 100)
-states/off/node = SubResource("AnimationNodeAnimation_1n2s4")
-states/off/position = Vector2(412, 100)
-transitions = ["off", "activate", SubResource("AnimationNodeStateMachineTransition_oow8y"), "activate", "off", SubResource("AnimationNodeStateMachineTransition_ko3ea"), "Start", "off", SubResource("AnimationNodeStateMachineTransition_wqcn1")]
-graph_offset = Vector2(-179, -40)
-
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_urmmp")
 
@@ -555,23 +441,12 @@ parameters/conditions/fade_in = false
 parameters/conditions/fade_out = false
 
 [node name="AirText" type="RichTextLabel" parent="Camera2D"]
-offset_left = -43.0
-offset_top = -154.0
-offset_right = -7.0
-offset_bottom = -118.0
+offset_left = -119.0
+offset_top = 22.0
+offset_right = -43.0
+offset_bottom = 58.0
 theme_override_font_sizes/normal_font_size = 24
 text = "10"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/AirText"]
-libraries = {
-"": SubResource("AnimationLibrary_thdxu")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="Camera2D/AirText/AnimationPlayer"]
-root_node = NodePath("../..")
-tree_root = SubResource("AnimationNodeStateMachine_12t7c")
-anim_player = NodePath("..")
-parameters/conditions/active = false
 
 [node name="AudioController" type="Node" parent="." node_paths=PackedStringArray("theme", "danger", "noise")]
 script = ExtResource("9_0y7nj")
