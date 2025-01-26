@@ -8,28 +8,34 @@ var start_position
 @onready var animation_tree : AnimationTree = get_node("PlayerSprite2D/AnimationPlayer/AnimationTree")
 
 var rotation_limit = 15
-var right_rotation = 0.005
-var left_rotation = 0.005
 var rotation_correction_strenght = 0.01
-var right_strenght = 50
-var left_strenght = 50
 var up_strenght = 100
+var side_rotation = 30
 var sea_gravity = 15
-
 signal lose_air
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	#start_position = Vector2(screen_size[0]/2,(screen_size[1]-100))
-	#position = start_position
-	#global_rotation_degrees = start_rotation
-	#turning bubbles on
-	#$ParticleBubbles.emitting = true
+func move_player(v,up_strenght,p_rotation,flip=false):
+	
+	v.y -= up_strenght
+	if flip==true:
+		#rotation = p_rotation
+		v += v.rotated(p_rotation)
+	else:
+		#rotation = p_rotation
+		v -= v.rotated(p_rotation)
+	animation_tree["parameters/conditions/start"] = true
+	print("velocity is ",v," strenght is ",up_strenght," rotation is ",p_rotation)
+	return v
+	#if global_rotation_degrees in range(rotation_limit,rotation_limit):
+	#	print(global_rotation_degrees, "in range")
+	#	rotation = rotation + strenght
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var velocity = Vector2.ZERO # The player's movement vector.
+	var velocity = Vector2.ZERO
 	absolute_player_depth_px = position.y
 		#gravity
 	if not Input.is_anything_pressed() and can_sink==true:
@@ -41,19 +47,9 @@ func _process(delta):
 		animation_tree["parameters/conditions/moving"] = true
 	
 	if Input.is_action_pressed("move_right"):
-		velocity.x += right_strenght
-		velocity.y -= right_rotation
-		velocity += velocity.rotated(right_strenght)
-		animation_tree["parameters/conditions/start"] = true
-		if not global_rotation_degrees > rotation_limit:
-			rotation = rotation + right_rotation
+		velocity = move_player(velocity,up_strenght,side_rotation)
 	if Input.is_action_pressed("move_left"):
-		velocity.x -= left_strenght
-		velocity.y -= left_strenght
-		velocity += velocity.rotated(left_strenght)
-		animation_tree["parameters/conditions/start"] = true
-		if not global_rotation_degrees <-rotation_limit:
-			rotation = rotation - left_rotation
+		velocity = move_player(velocity,up_strenght,side_rotation,true)
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= up_strenght
 		animation_tree["parameters/conditions/start"] = true
@@ -61,8 +57,14 @@ func _process(delta):
 			rotation = rotation_correction_strenght
 		else:
 			rotation = rotation_correction_strenght
-	
+	# not ideal way of doing this
 	if Input.is_action_just_released("move_up"):
+		emit_signal('lose_air')
+		$ParticleBubbles.restart()
+	if Input.is_action_just_released("move_left"):
+		emit_signal('lose_air')
+		$ParticleBubbles.restart()
+	if Input.is_action_just_released("move_right"):
 		emit_signal('lose_air')
 		$ParticleBubbles.restart()
 		
