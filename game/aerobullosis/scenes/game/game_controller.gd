@@ -9,8 +9,12 @@ var player_depth = 0
 @onready var audio_controller = get_node("AudioController")
 @onready var tutorial : AnimationTree = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
 @onready var black_screen : AnimationTree = get_node("Camera2D/BlackScreen/AnimationPlayer/AnimationTree")
+@onready var red_screen : AnimationTree = get_node("Camera2D/RedScreen/AnimationPlayer/AnimationTree")
+@onready var air_text = get_node("Camera2D/AirText")
+@onready var air_animation : AnimationTree = get_node("Camera2D/AirText/AnimationPlayer/AnimationTree")
 var player_prev_position
 var tutorial_active = false
+var air_amount = 10
 
 var this_scene = preload("res://scenes/game/main_level.tscn")
 var ending_scene = preload('res://scenes/ending.tscn')
@@ -32,8 +36,8 @@ const PLAYER_STOPS_SINKING = -20
 func _ready():
 	player_prev_position = player.position
 	await get_tree().create_timer(1.0).timeout
-	black_screen["parameters/conditions/fade_out"] = true
-	black_screen["parameters/conditions/fade_in"] = false
+	red_screen["parameters/conditions/fade_out"] = true
+	red_screen["parameters/conditions/fade_in"] = false
 	start_tutorial()
 
 func get_surface_distance():
@@ -91,14 +95,19 @@ func _process(delta):
 		game_completed()
 	
 	if player.position.y >= PLAYER_STOPS_SINKING:
-		#print("disabled sinking")
 		player.can_sink = false
 	else:
-		#print("enabled sinking")
 		player.can_sink = true
 	
 func game_over():
 	audio_controller.silence_theme()
+	red_screen["parameters/conditions/fade_out"] = false
+	red_screen["parameters/conditions/fade_in"] = true
+	await get_tree().create_timer(5.0).timeout
+	queue_free()
+	get_tree().root.add_child(this_scene.instantiate())
+	
+func game_over_air():
 	black_screen["parameters/conditions/fade_out"] = false
 	black_screen["parameters/conditions/fade_in"] = true
 	await get_tree().create_timer(5.0).timeout
@@ -109,3 +118,13 @@ func game_completed():
 	print("won the game")
 	queue_free()
 	get_tree().root.add_child(ending_scene.instantiate())
+
+func _on_player_lose_air():
+	air_amount -= 1
+	air_text.text = str(air_amount)
+	air_animation["parameters/conditions/active"] = true
+	await get_tree().create_timer(0.5).timeout
+	air_animation["parameters/conditions/active"] = false
+	
+	if air_amount <= 0:
+		game_over_air()

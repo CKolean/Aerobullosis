@@ -12,14 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://c8glfwtqu6ov0" path="res://assets/bubble_2.png" id="10_q4xv5"]
 [ext_resource type="AudioStream" uid="uid://4q45me02cek7" path="res://assets/sounds/seagull.mp3" id="11_taemt"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rj4ix"]
-lifetime_randomness = 0.4
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3byl8"]
 particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(1920, 1080, 1)
 angle_min = 1.07288e-05
 angle_max = 360.0
-gravity = Vector3(0, -200, 0)
+gravity = Vector3(0, -500, 0)
 scale_min = 0.01
 scale_max = 0.1
 turbulence_enabled = true
@@ -35,48 +32,33 @@ position = Vector2(32.4999, -14.5)
 scale = Vector2(27.4952, 14.2636)
 texture = ExtResource("2_fty4x")
 
-[node name="ParticleBubbles" type="GPUParticles2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.643137)
-position = Vector2(-5, 12)
-amount = 50
-amount_ratio = 0.5823
-process_material = SubResource("ParticleProcessMaterial_rj4ix")
-texture = ExtResource("10_q4xv5")
-lifetime = 10.0
-preprocess = 5.0
-speed_scale = 1.5
-randomness = 0.1
-trail_lifetime = 3.0
-trail_sections = 2
-trail_section_subdivisions = 2
-
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(-7, 21)
+position = Vector2(-9, 26)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("2_sw13l")
 
 [node name="By" type="Sprite2D" parent="."]
-position = Vector2(-524, 117)
+position = Vector2(-524.283, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("4_j6nr1")
 
 [node name="arhi" type="Sprite2D" parent="."]
-position = Vector2(-379, 117)
+position = Vector2(-379.283, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("5_81ujh")
 
 [node name="elina" type="Sprite2D" parent="."]
-position = Vector2(-150, 117)
+position = Vector2(-150.283, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("6_54onm")
 
 [node name="tia" type="Sprite2D" parent="."]
-position = Vector2(123, 117)
+position = Vector2(122.717, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("7_h06f0")
 
 [node name="topi" type="Sprite2D" parent="."]
-position = Vector2(398, 117)
+position = Vector2(397.717, 134.739)
 scale = Vector2(0.870575, 0.870575)
 texture = ExtResource("8_mtgek")
 
@@ -89,3 +71,19 @@ volume_db = -10.759
 [node name="Lokki" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_taemt")
 volume_db = -5.379
+[node name="ParticleBubbles" type="GPUParticles2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.643137)
+position = Vector2(519, 132)
+emitting = false
+amount_ratio = 0.7472
+process_material = SubResource("ParticleProcessMaterial_3byl8")
+texture = ExtResource("10_q4xv5")
+lifetime = 3.0
+one_shot = true
+preprocess = 0.01
+speed_scale = 1.5
+explosiveness = 0.6
+randomness = 0.48
+trail_lifetime = 3.0
+trail_sections = 2
+trail_section_subdivisions = 2
