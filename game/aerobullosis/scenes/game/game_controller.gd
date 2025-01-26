@@ -6,6 +6,7 @@ var player_depth = 0
 @onready var red_fade = get_node("RedFade")
 @onready var player = get_node("Player")
 @onready var camera = get_node("Camera2D")
+@onready var audio_controller = get_node("AudioController")
 @onready var tutorial : AnimationTree = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
 @onready var black_screen : AnimationTree = get_node("Camera2D/BlackScreen/AnimationPlayer/AnimationTree")
 @onready var red_screen : AnimationTree = get_node("Camera2D/RedScreen/AnimationPlayer/AnimationTree")
@@ -14,6 +15,11 @@ var player_depth = 0
 var player_prev_position
 var tutorial_active = false
 var air_amount = 10
+
+var this_scene = preload("res://scenes/game/main_level.tscn")
+var ending_scene = preload('res://scenes/ending.tscn')
+
+var state_game_over = false
 
 # turvaväli alkuun
 const RED_AMOUNT_MIN = -1.0
@@ -30,6 +36,7 @@ const PLAYER_STOPS_SINKING = -20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	state_game_over = false
 	player_prev_position = player.position
 	await get_tree().create_timer(1.0).timeout
 	red_screen["parameters/conditions/fade_out"] = true
@@ -51,6 +58,8 @@ func stop_tutorial():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if state_game_over:
+		return
 	var player_depth_delta = player.position.y - player_prev_position.y
 	player_prev_position = player.position
 	# increase red amount if player moved up since last move
@@ -93,19 +102,29 @@ func _process(delta):
 		player.can_sink = true
 	
 func game_over():
+	print('game_over')
+	state_game_over = true
+	audio_controller.silence_theme()
 	red_screen["parameters/conditions/fade_out"] = false
 	red_screen["parameters/conditions/fade_in"] = true
 	await get_tree().create_timer(5.0).timeout
-	get_tree().reload_current_scene()
+	queue_free()
+	get_tree().root.add_child(this_scene.instantiate())
 	
 func game_over_air():
+	print('game over air')
+	state_game_over = true
+	audio_controller.silence_danger()
 	black_screen["parameters/conditions/fade_out"] = false
 	black_screen["parameters/conditions/fade_in"] = true
 	await get_tree().create_timer(5.0).timeout
-	get_tree().reload_current_scene()
+	queue_free()
+	get_tree().root.add_child(this_scene.instantiate())
 
 func game_completed():
-	get_tree().change_scene_to_file("res://scenes/ending.tscn")
+	print("won the game")
+	queue_free()
+	get_tree().root.add_child(ending_scene.instantiate())
 
 func _on_player_lose_air():
 	air_amount -= 1
@@ -116,3 +135,6 @@ func _on_player_lose_air():
 	
 	if air_amount <= 0:
 		game_over_air()
+
+func is_game_over():
+	return state_game_over

@@ -523,7 +523,6 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="RedScreen" type="Sprite2D" parent="Camera2D"]
-visible = false
 position = Vector2(-58.5002, 13)
 scale = Vector2(43.4, 23.8)
 texture = ExtResource("13_u8s7y")
@@ -541,7 +540,6 @@ parameters/conditions/fade_in = false
 parameters/conditions/fade_out = false
 
 [node name="BlackScreen" type="Sprite2D" parent="Camera2D"]
-visible = false
 position = Vector2(-58.5002, 13)
 scale = Vector2(43.4, 23.8)
 texture = ExtResource("14_crho6")
