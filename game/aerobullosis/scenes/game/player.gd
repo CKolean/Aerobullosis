@@ -16,6 +16,8 @@ var left_strenght = 50
 var up_strenght = 100
 var sea_gravity = 15
 
+signal lose_air
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -61,6 +63,7 @@ func _process(delta):
 			rotation = rotation_correction_strenght
 	
 	if Input.is_action_just_released("move_up"):
+		emit_signal('lose_air')
 		$ParticleBubbles.restart()
 		
 	position += velocity * delta
