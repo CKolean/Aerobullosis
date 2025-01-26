@@ -7,6 +7,7 @@ var game_scene = preload("res://scenes/game/main_level.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("only once")
 	await get_tree().create_timer(0.5).timeout
 	noise.play()
 	seagull.play()
@@ -26,9 +27,9 @@ func _ready():
 	$tia.show()
 	$topi.show()
 	$ParticleBubbles.emitting = true
-	await get_tree().create_timer(10.0).timeout
-	get_tree().root.add_child(game_scene.instantiate())
-	get_parent().remove_child(self)
+	#await get_tree().create_timer(10.0).timeout
+	#get_tree().root.add_child(game_scene.instantiate())
+	#get_parent().remove_child(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
