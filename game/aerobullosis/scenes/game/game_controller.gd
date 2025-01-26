@@ -14,7 +14,7 @@ var player_depth = 0
 @onready var air_animation : AnimationTree = get_node("Camera2D/AirText/AnimationPlayer/AnimationTree")
 var player_prev_position
 var tutorial_active = false
-var air_amount = 10
+var air_amount = 11
 
 var this_scene = preload("res://scenes/game/main_level.tscn")
 var ending_scene = preload('res://scenes/ending.tscn')
@@ -102,36 +102,40 @@ func _process(delta):
 		player.can_sink = true
 	
 func game_over():
-	print('game_over')
+	print('game over')
 	state_game_over = true
 	audio_controller.silence_theme()
 	red_screen["parameters/conditions/fade_out"] = false
 	red_screen["parameters/conditions/fade_in"] = true
 	await get_tree().create_timer(5.0).timeout
-	queue_free()
 	get_tree().root.add_child(this_scene.instantiate())
+	get_parent().remove_child(self)
 	
 func game_over_air():
+	if state_game_over:
+		return
 	print('game over air')
 	state_game_over = true
 	audio_controller.silence_danger()
 	black_screen["parameters/conditions/fade_out"] = false
 	black_screen["parameters/conditions/fade_in"] = true
 	await get_tree().create_timer(5.0).timeout
-	queue_free()
 	get_tree().root.add_child(this_scene.instantiate())
+	get_parent().remove_child(self)
 
 func game_completed():
-	print("won the game")
-	queue_free()
 	get_tree().root.add_child(ending_scene.instantiate())
+	get_parent().remove_child(self)
 
 func _on_player_lose_air():
+	if state_game_over:
+		return
 	air_amount -= 1
 	air_text.text = str(air_amount)
-	air_animation["parameters/conditions/active"] = true
-	await get_tree().create_timer(0.5).timeout
-	air_animation["parameters/conditions/active"] = false
+	if air_amount >= 0:
+		air_animation["parameters/conditions/active"] = true
+		await get_tree().create_timer(0.5).timeout
+		air_animation["parameters/conditions/active"] = false
 	
 	if air_amount <= 0:
 		game_over_air()

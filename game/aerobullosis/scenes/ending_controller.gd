@@ -27,8 +27,8 @@ func _ready():
 	$topi.show()
 	$ParticleBubbles.emitting = true
 	await get_tree().create_timer(10.0).timeout
-	queue_free()
 	get_tree().root.add_child(game_scene.instantiate())
+	get_parent().remove_child(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
