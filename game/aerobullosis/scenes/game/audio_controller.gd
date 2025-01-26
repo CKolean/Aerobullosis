@@ -12,6 +12,9 @@ func _ready() -> void:
 	danger.volume_db = linear_to_db(0)
 	noise.volume_db = linear_to_db(0)
 
+func silence_theme():
+	theme.volume_db = linear_to_db(0)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var red_amount = get_parent().red_amount

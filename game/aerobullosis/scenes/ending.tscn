@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ck1c8488hrfi"]
+[gd_scene load_steps=13 format=3 uid="uid://ck1c8488hrfi"]
 
 [ext_resource type="Script" path="res://scenes/ending_controller.gd" id="1_fkfra"]
 [ext_resource type="Texture2D" uid="uid://dbb2it5qb8fn2" path="res://assets/black_screen.png" id="2_fty4x"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bkce0tnbj76l4" path="res://assets/credits_4.png" id="7_h06f0"]
 [ext_resource type="Texture2D" uid="uid://cttft885fcuyq" path="res://assets/credits_5.png" id="8_mtgek"]
 [ext_resource type="Texture2D" uid="uid://c8glfwtqu6ov0" path="res://assets/bubble_2.png" id="10_q4xv5"]
+[ext_resource type="AudioStream" uid="uid://4q45me02cek7" path="res://assets/sounds/seagull.mp3" id="11_taemt"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rj4ix"]
 lifetime_randomness = 0.4
@@ -24,9 +25,10 @@ scale_max = 0.1
 turbulence_enabled = true
 turbulence_noise_strength = 2.0
 
-[node name="Ending" type="Node2D" node_paths=PackedStringArray("noise")]
+[node name="Ending" type="Node2D" node_paths=PackedStringArray("noise", "seagull")]
 script = ExtResource("1_fkfra")
 noise = NodePath("Noise")
+seagull = NodePath("Lokki")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(32.4999, -14.5)
@@ -80,5 +82,10 @@ texture = ExtResource("8_mtgek")
 
 [node name="Noise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ht0eb")
+volume_db = -10.759
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Lokki" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_taemt")
+volume_db = -5.379

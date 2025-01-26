@@ -6,10 +6,14 @@ var player_depth = 0
 @onready var red_fade = get_node("RedFade")
 @onready var player = get_node("Player")
 @onready var camera = get_node("Camera2D")
+@onready var audio_controller = get_node("AudioController")
 @onready var tutorial : AnimationTree = get_node("TutorialArrows/AnimationPlayer/AnimationTree")
 @onready var black_screen : AnimationTree = get_node("Camera2D/BlackScreen/AnimationPlayer/AnimationTree")
 var player_prev_position
 var tutorial_active = false
+
+var this_scene = preload("res://scenes/game/main_level.tscn")
+var ending_scene = preload('res://scenes/ending.tscn')
 
 # turvaväli alkuun
 const RED_AMOUNT_MIN = -1.0
@@ -20,7 +24,7 @@ const RECOVERY_MULTIPLIER = 0.4
 # aika ennenkuin kuolet kun on punaista
 const DEATH_TIME = 3
 # positio millä voittaa pelin
-const SURFACE_Y = -3800
+const SURFACE_Y = -2000#-3800
 # kohta missä vajoaminen loppuu
 const PLAYER_STOPS_SINKING = -20
 
@@ -87,18 +91,21 @@ func _process(delta):
 		game_completed()
 	
 	if player.position.y >= PLAYER_STOPS_SINKING:
-		print("disabled sinking")
+		#print("disabled sinking")
 		player.can_sink = false
 	else:
-		print("enabled sinking")
+		#print("enabled sinking")
 		player.can_sink = true
 	
 func game_over():
+	audio_controller.silence_theme()
 	black_screen["parameters/conditions/fade_out"] = false
 	black_screen["parameters/conditions/fade_in"] = true
-	await get_tree().create_timer(1.0).timeout
-	get_tree().reload_current_scene()
+	await get_tree().create_timer(5.0).timeout
+	queue_free()
+	get_tree().root.add_child(this_scene.instantiate())
 
 func game_completed():
 	print("won the game")
-	get_tree().change_scene_to_file("res://scenes/ending.tscn")
+	queue_free()
+	get_tree().root.add_child(ending_scene.instantiate())
