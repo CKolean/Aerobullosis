@@ -11,13 +11,11 @@ var rotation_limit = 15
 var right_rotation = 0.005
 var left_rotation = 0.005
 # I dont know what to do with this number
-var rotation_correction_strenght = 0.000000001
+var rotation_correction_strenght = 0.01
 var right_strenght = 50
 var left_strenght = 50
 var up_strenght = 100
 var sea_gravity = 15
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,7 +42,7 @@ func _process(delta):
 	if Input.is_action_pressed("move_right"):
 		velocity.x += right_strenght
 		velocity.y -= right_rotation
-		velocity == velocity.rotated(right_strenght)
+		velocity += velocity.rotated(right_strenght)
 		animation_tree["parameters/conditions/start"] = true
 		if not global_rotation_degrees > rotation_limit:
 			rotation = rotation + right_rotation
