@@ -41,9 +41,8 @@ func get_surface_distance():
 	
 func start_tutorial():
 	await get_tree().create_timer(2.0).timeout
-	tutorial_active = true
-	print("should happen")
 	tutorial["parameters/conditions/fade_in"] = true
+	tutorial_active = true
 	
 func stop_tutorial():
 	tutorial_active = false
@@ -79,12 +78,10 @@ func _process(delta):
 	if red_amount > 0:
 		camera.zoom.x = 1.5 - red_amount * 0.2
 		camera.zoom.y = 1.5 - red_amount * 0.2
-	
-	#print(player.position.y)
-	
+		
 	camera.position = player.position
 	
-	if player.position.y <= -400 and tutorial_active:
+	if player.position.y <= -205 and tutorial_active:
 		stop_tutorial()
 	
 	if player.position.y <= SURFACE_Y:
@@ -98,17 +95,16 @@ func _process(delta):
 func game_over():
 	red_screen["parameters/conditions/fade_out"] = false
 	red_screen["parameters/conditions/fade_in"] = true
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(5.0).timeout
 	get_tree().reload_current_scene()
 	
 func game_over_air():
 	black_screen["parameters/conditions/fade_out"] = false
 	black_screen["parameters/conditions/fade_in"] = true
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(5.0).timeout
 	get_tree().reload_current_scene()
 
 func game_completed():
-	print("won the game")
 	get_tree().change_scene_to_file("res://scenes/ending.tscn")
 
 func _on_player_lose_air():
